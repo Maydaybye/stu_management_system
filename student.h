@@ -71,12 +71,13 @@ void exist_class() {
 			scanf("%d", &a);
 			void look_through();
 			void append_student();
-			void delete_student();  //声明函数
+			void delete_student(); 
+			void update_student();  //声明函数
 			switch (a) {
 			case 1:look_through(); break;
 			case 2:append_student(); break;
 			case 3:delete_student(); break;
-			case 4:break;
+			case 4:update_student(); break;
 			case 5:break;
 			default:break;
 			}
@@ -184,10 +185,54 @@ void delete_student() {
 	} while (count > stu_list_count);//把除了要删除的学生的信息，都输入到同名新文件夹中。
 	free(student_link_list);//释放学生数组。
 	fclose(fp);
+
 }
 //删除学生信息
+void update_student() {
+	int Chinese_grade;
+	int Math_grade;
+	char name[10];
+	int flag = 3;
+	int flag_arry_count = 0;
+	int stu_list_count = 0;
+	STU* student_link_list = malloc(sizeof(STU) * 50);//一个学生类的数组，用于暂时存放学生信息，存放数量少于50个。
+	fp = fopen(class, "r");
+	system("cls");
+	printf("请输入要更新的学生的名字：");
+	scanf("%s", name);
+	for (stu_list_count; flag == 3; stu_list_count++) {
+		flag = fscanf(fp, "%s  %d  %d", student_link_list[stu_list_count].name, &student_link_list[stu_list_count].Chinese_grade, &student_link_list[stu_list_count].Math_grade);
+		if (!(strcmp(student_link_list[stu_list_count].name, name)))
+			flag_arry_count = stu_list_count;
+	}//将已存在班级中的学生信息读入学生类数组。
+	int count = stu_list_count - 2;//count用来控制下面的do{}while循环结束、
+	stu_list_count = 0;
+
+	fclose(fp);
+	remove(class);//删除原来的班级文件
+	fp = fopen(class, "w");
+	do {
+		if (stu_list_count == flag_arry_count)
+			stu_list_count++;
+		fprintf(fp, "%s   %d   %d\n", student_link_list[stu_list_count].name, student_link_list[stu_list_count].Chinese_grade, student_link_list[stu_list_count
+		].Math_grade);
+		stu_list_count++;
+	} while (count > stu_list_count);//把除了要删除的学生的信息，都输入到同名新文件夹中。
+	free(student_link_list);//释放学生数组。
+	
+	
+	printf("%s班\n请输入语文成绩：", class);
+	scanf(" %d", &Chinese_grade);
+	system("cls");
+	printf("%s班\n请输入数学成绩:", class);
+	scanf(" %d", &Math_grade);
+	fprintf(fp, "%s   %d   %d\n", name, Chinese_grade, Math_grade);
+    fclose(fp);
+}
+//更新学生信息
 void delete_class() {
 	printf("请输入要删除的班级名字：");
 	scanf("%s", class);
 	remove(class);
 }
+//删除班级
