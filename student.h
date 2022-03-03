@@ -72,13 +72,14 @@ void exist_class() {
 			void look_through();
 			void append_student();
 			void delete_student(); 
-			void update_student();  //声明函数
+			void update_student(); 
+			void search_student();  //声明函数
 			switch (a) {
 			case 1:look_through(); break;
 			case 2:append_student(); break;
 			case 3:delete_student(); break;
 			case 4:update_student(); break;
-			case 5:break;
+			case 5:search_student(); break;
 			default:break;
 			}
 			printf("按任意键返回班级操作，按#退出班级操作。");
@@ -230,6 +231,26 @@ void update_student() {
     fclose(fp);
 }
 //更新学生信息
+void search_student() {
+	char name[10];
+	int stu_list_count = 0;
+	int flag = 3;
+	STU* student_link_list = malloc(sizeof(STU) * 50);//一个学生类的数组，用于暂时存放学生信息，存放数量少于50个。
+	printf("请输入要查询的学生姓名:");
+	scanf("%s", name);
+	system("cls");
+	for (stu_list_count; flag == 3; stu_list_count++) {
+		flag = fscanf(fp, "%s  %d  %d", student_link_list[stu_list_count].name, &student_link_list[stu_list_count].Chinese_grade, &student_link_list[stu_list_count].Math_grade);
+		if (!strcmp(student_link_list[stu_list_count].name,name))
+		{
+			printf("姓名：%s  语文成绩：%d  数学成绩：%d\n", student_link_list[stu_list_count].name, student_link_list[stu_list_count].Chinese_grade, student_link_list[stu_list_count].Math_grade);
+			break;
+		}
+	}
+	free(student_link_list);
+	fclose(fp);
+}
+//查询学生信息
 void delete_class() {
 	printf("请输入要删除的班级名字：");
 	scanf("%s", class);
