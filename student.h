@@ -42,6 +42,7 @@ void direct_search() {
 //主选择界面
 void exist_class() {
 	int a;
+	char flag;
 	printf("请输入班级：");
 	scanf("%s", &class);
 	if ((fp = fopen(class, "r")) == NULL)
@@ -52,28 +53,35 @@ void exist_class() {
 	}
 
 	else {
+		
+		do {
+			system("cls");
+			printf("\t\t\t\t\t\t——————————————————\n");
+			printf("\t\t\t\t\t\t|        1、查看所有学生信息       |\n");
+			printf("\t\t\t\t\t\t|        2、增加学生信息           |\n");
+			printf("\t\t\t\t\t\t|        3、删除学生信息           |\n");
+			printf("\t\t\t\t\t\t|        4、修改学生信息           |\n");
+			printf("\t\t\t\t\t\t|        5、查询学生信息           |\n");
+			printf("\t\t\t\t\t\t——————————————————\n");
 
-		printf("\t\t\t\t\t\t——————————————————\n");
-		printf("\t\t\t\t\t\t|        1、查看所有学生信息       |\n");
-		printf("\t\t\t\t\t\t|        2、增加学生信息           |\n");
-		printf("\t\t\t\t\t\t|        3、删除学生信息           |\n");
-		printf("\t\t\t\t\t\t|        4、修改学生信息           |\n");
-		printf("\t\t\t\t\t\t|        5、查询学生信息           |\n");
-		printf("\t\t\t\t\t\t——————————————————\n");
+			printf("\t\t\t\t\t\t请选择：");
+			scanf("%d", &a);
+			void look_through();
+			void append_student();
+			void delete_student();  //声明函数
+			switch (a) {
+			case 1:look_through(); break;
+			case 2:append_student(); break;
+			case 3:delete_student(); break;
+			case 4:break;
+			case 5:break;
+			default:break;
+			}
+			printf("按任意键返回班级操作，按#退出班级操作。");
+			scanf(" %c", &flag);
+		} while (flag != '#');
 
-		printf("\t\t\t\t\t\t请选择：");
-		scanf("%d", &a);
-		void look_through(); 
-		void append_student();
-		void delete_student();  //声明函数
-		switch (a) {
-		case 1:look_through(); break;
-		case 2:append_student(); break;
-		case 3:delete_student(); break;
-		case 4:break;
-		case 5:break;
-		default:break;
-		}
+
 	}
 }
 //已有班级函数，包括了新界面和调用对应功能函数。
@@ -105,6 +113,7 @@ void new_class() {
 }
 //新建班级函数
 void look_through() {
+	system("cls");
 	int flag;
 	char name[10];
 	int Chinese_grade, Math_grade;
@@ -123,6 +132,7 @@ void append_student() {
 	int Chinese_grade;
 	int Math_grade;
 	char flag;
+	system("cls");
 	fp = fopen(class, "a");
 	do {
 		printf("%s班\n请输入学生姓名：", class);
@@ -148,6 +158,7 @@ void delete_student() {
 	int stu_list_count = 0;
 	STU* student_link_list = malloc(sizeof(STU) * 50);//一个学生类的数组，用于暂时存放学生信息，存放数量少于50个。
 	fp = fopen(class, "r");
+	system("cls");
 	printf("请输入要删除的学生的名字：\n");
 	scanf("%s", name);
 	for (stu_list_count; flag == 3; stu_list_count++) {
