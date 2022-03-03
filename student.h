@@ -27,14 +27,17 @@ void direct_search() {
 	int a;
 	printf("\t\t\t\t\t\t      1、已有班级          \n");
 	printf("\t\t\t\t\t\t      2、新建班级          \n");
+	printf("\t\t\t\t\t\t      3、删除班级          \n");
 	printf("请选择：");
 	scanf("%d", &a);
 	system("cls");      //清屏
 	void exist_class(); 
-	void new_class();	/*函数体在后面,声明函数。*/				
+	void new_class();
+	void delete_class();	/*函数体在后面,声明函数。*/
 	switch (a) {
 	case 1:exist_class(); break;
 	case 2:new_class(); break;
+	case 3:delete_class(); break;
 
 	}
 
@@ -183,3 +186,8 @@ void delete_student() {
 	fclose(fp);
 }
 //删除学生信息
+void delete_class() {
+	printf("请输入要删除的班级名字：");
+	scanf("%s", class);
+	remove(class);
+}
