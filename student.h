@@ -201,6 +201,7 @@ void update_student() {
 	system("cls");
 	printf("请输入要更新的学生的名字：");
 	scanf("%s", name);
+	
 	for (stu_list_count; flag == 3; stu_list_count++) {
 		flag = fscanf(fp, "%s  %d  %d", student_link_list[stu_list_count].name, &student_link_list[stu_list_count].Chinese_grade, &student_link_list[stu_list_count].Math_grade);
 		if (!(strcmp(student_link_list[stu_list_count].name, name)))
@@ -218,7 +219,7 @@ void update_student() {
 		fprintf(fp, "%s   %d   %d\n", student_link_list[stu_list_count].name, student_link_list[stu_list_count].Chinese_grade, student_link_list[stu_list_count
 		].Math_grade);
 		stu_list_count++;
-	} while (count > stu_list_count);//把除了要删除的学生的信息，都输入到同名新文件夹中。
+	} while (count >= stu_list_count);//把除了要删除的学生的信息，都输入到同名新文件夹中。
 	free(student_link_list);//释放学生数组。
 	
 	
@@ -239,6 +240,7 @@ void search_student() {
 	printf("请输入要查询的学生姓名:");
 	scanf("%s", name);
 	system("cls");
+	fp = fopen(class, "r");
 	for (stu_list_count; flag == 3; stu_list_count++) {
 		flag = fscanf(fp, "%s  %d  %d", student_link_list[stu_list_count].name, &student_link_list[stu_list_count].Chinese_grade, &student_link_list[stu_list_count].Math_grade);
 		if (!strcmp(student_link_list[stu_list_count].name,name))
